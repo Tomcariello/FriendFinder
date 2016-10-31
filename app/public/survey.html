@@ -4,7 +4,7 @@
 	<title>Survey</title>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="http://bootswatch.com/lumen/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="app/public/styles.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
@@ -148,8 +148,10 @@
 	
 
 	<script type="text/javascript">
+
 		$('#submitButton').on('click', function() {
 
+			var friendsList = [];
 			var userData = {
 				name: $('#fullName').val().trim(),
 				photo: $('#profilePic').val().trim(),
@@ -170,16 +172,29 @@
 			var currentURL = window.location.origin;
 
 			$.ajax({url: currentURL + '/friendsList', method: "GET"})
-				.done(function(friendsList){
-					console.log(friendsList);
+				.done(function(result){
+					// console.log(result);
+					for (var i = 0; i < friendsList.length; i++) {
+						console.log("in for loop");
+						console.log(userData[i].Scores);
+					}
+
 				})
 
 			console.log('Sending user data to server');
-			console.log(userData);
-			$.ajax({url: currentURL + '/add', userData, method: "POST"})
-				.done(function (data) {
-					console.log(data);
-				});
+			// console.log(userData);
+
+			$.post(currentURL + '/add', userData, function (data, status) {
+				console.log(data);
+			});
+
+			// //find best match
+
+			// var perFriendDifferential = [];
+
+
+			
+
 
 			return false;
 		});

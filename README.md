@@ -13,11 +13,11 @@ Create array of objects with random friends
 Set Routes for pages (Survey Page & Home Page)
 Create API listener (Return friend data)
 I broke the survey data submittal by altering the POST syntax to match the GET syntax.
+Fix routing for CSS
+Fix POST request
 
 
 To Do:
-Fix routing for CSS
-Fix POST request
 Process user answers and compare to array of friends
 Load Modal to show the user their best match
 Force answers for all questions in survey
