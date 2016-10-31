@@ -166,10 +166,19 @@
 					$('#exercise').val()]
 			};
 
-			$.post('http://localhost:3000/add', userData)
+			//Get existing database before submitting
+			var currentURL = window.location.origin;
+
+			$.ajax({url: currentURL + '/friendsList', method: "GET"})
+				.done(function(friendsList){
+					console.log(friendsList);
+				})
+
+			console.log('Sending user data to server');
+			console.log(userData);
+			$.ajax({url: currentURL + '/add', userData, method: "POST"})
 				.done(function (data) {
 					console.log(data);
-					alert('Adding character...');
 				});
 
 			return false;
