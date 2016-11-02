@@ -17,13 +17,17 @@ Fix routing for CSS
 Fix POST request
 
 
-To Do:
+11/1/2016
 Process user answers and compare to array of friends
-Load Modal to show the user their best match
-Force answers for all questions in survey
 
+
+To Do:
+
+Load Modal to show the user their best match
+Process submitted data into array for future searches.
 
 
 Stretch Goals:
+Force answers for all questions in survey
 Improve visual styling
 Hook this into MySQL

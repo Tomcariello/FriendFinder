@@ -151,21 +151,24 @@
 
 		$('#submitButton').on('click', function() {
 
-			var friendsList = [];
+			//I have no idea why this is necessary. When I put this directly in the array they were strings & I could not parseInt...?
+			var answer01 = parseInt($('#cubs').val());
+			var answer02 = parseInt($('#climbing').val());
+			var answer03 = parseInt($('#giving').val());
+			var answer04 = parseInt($('#revenge').val());
+			var answer05 = parseInt($('#financial').val());
+			var answer06 = parseInt($('#butterfly').val());
+			var answer07 = parseInt($('#spoilers').val());
+			var answer08 = parseInt($('#halloween').val());
+			var answer09 = parseInt($('#beerpong').val());
+			var answer10 = parseInt($('#exercise').val());
+
+			var bestMatchScoreCount;
+			var bestMatchIndex;
 			var userData = {
 				name: $('#fullName').val().trim(),
 				photo: $('#profilePic').val().trim(),
-				Scores: [
-					$('#cubs').val(),
-					$('#climbing').val(),
-					$('#giving').val(),
-					$('#revenge').val(),
-					$('#financial').val(),
-					$('#butterfly').val(),
-					$('#spoilers').val(),
-					$('#halloween').val(),
-					$('#beerpong').val(),
-					$('#exercise').val()]
+				Scores: [answer01,answer02,answer03,answer04,answer05,answer06,answer07,answer08,answer09,answer10]
 			};
 
 			//Get existing database before submitting
@@ -173,16 +176,26 @@
 
 			$.ajax({url: currentURL + '/friendsList', method: "GET"})
 				.done(function(result){
-					// console.log(result);
-					for (var i = 0; i < friendsList.length; i++) {
-						console.log("in for loop");
-						console.log(userData[i].Scores);
+					//loop through each user
+					for (var i = 0; i < result.length; i++) {
+						var currentUserScore = 0;
+						for (var j = 0; j < 10; j++) {
+							console.log("User data is " + result[i].scores[j] + " and your data is " + userData.Scores[j]);
+							currentUserScore = currentUserScore + Math.abs(result[i].scores[j] - userData.Scores[j]);
+						}
+	
+						console.log("currentUserScore is " + currentUserScore);
+	
+						if (currentUserScore < bestMatchScoreCount || i == 0) {
+							console.log("You found a better match, " + result[i].name);
+							bestMatchScoreCount = currentUserScore;
+							bestMatchIndex = i;
+						}
 					}
 
 				})
 
 			console.log('Sending user data to server');
-			// console.log(userData);
 
 			$.post(currentURL + '/add', userData, function (data, status) {
 				console.log(data);
