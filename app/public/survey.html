@@ -4,6 +4,7 @@
 	<title>Survey</title>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="http://bootswatch.com/lumen/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
@@ -144,6 +145,30 @@
   		<button id="submitButton" class="btn btn-primary btn-lg btn-block" type="button">Submit</button>
 	</div>
 
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Your best match in the database is...</h4>
+      </div>
+      <div class="modal-body">
+        <h2 id="matchName"></h2>
+        <p id="matchPhoto"></p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
 </div>
 	
 
@@ -191,6 +216,14 @@
 						bestMatchIndex = i;
 					}
 				}
+
+				var image = $('<img>')
+				image.attr('src', result[bestMatchIndex].photo);
+				image.attr('width', '300px');
+
+				$('#matchName').html(result[bestMatchIndex].name);
+				$('#matchPhoto').html(image);
+				$('#myModal').modal('show');
 
 			})
 
