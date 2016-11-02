@@ -37,7 +37,6 @@ module.exports = function (app) {
 		res.sendFile(path.join(__dirname, '/../public/survey.html'));
 	});
 
-
 	app.get('/friendsList', function(req, res) {
 		console.log('friendsList requested');
 		res.json(friendsList);
@@ -46,6 +45,27 @@ module.exports = function (app) {
 	// Create New Characters - takes in JSON input
 	app.post('/add', function (req, res) {
 		console.log("Data recieved on server. Adding data to database (pending)");
-		console.log(req);
+		console.log(req.body);
+
+		//I have no idea why this is necessary. When I put this directly in the array they were strings & I could not parseInt...?
+		var answer01 = parseInt(req.body.Scores[0]);
+		var answer02 = parseInt(req.body.Scores[1]);
+		var answer03 = parseInt(req.body.Scores[2]);
+		var answer04 = parseInt(req.body.Scores[3]);
+		var answer05 = parseInt(req.body.Scores[4]);
+		var answer06 = parseInt(req.body.Scores[5]);
+		var answer07 = parseInt(req.body.Scores[6]);
+		var answer08 = parseInt(req.body.Scores[7]);
+		var answer09 = parseInt(req.body.Scores[8]);
+		var answer10 = parseInt(req.body.Scores[9]);
+
+		var submittedData = {
+			name: req.body.name,
+			photo: req.body.photo,
+			scores: [answer01,answer02,answer03,answer04,answer05,answer06,answer07,answer08,answer09,answer10]
+		};
+
+		friendsList.push(submittedData);
+		console.log(friendsList);
 	});
 }

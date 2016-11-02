@@ -19,12 +19,11 @@ Fix POST request
 
 11/1/2016
 Process user answers and compare to array of friends
-
+Process submitted data into array for future searches.
 
 To Do:
-
 Load Modal to show the user their best match
-Process submitted data into array for future searches.
+
 
 
 Stretch Goals:

@@ -147,71 +147,63 @@
 </div>
 	
 
-	<script type="text/javascript">
+<script type="text/javascript">
 
-		$('#submitButton').on('click', function() {
+	$('#submitButton').on('click', function() {
 
-			//I have no idea why this is necessary. When I put this directly in the array they were strings & I could not parseInt...?
-			var answer01 = parseInt($('#cubs').val());
-			var answer02 = parseInt($('#climbing').val());
-			var answer03 = parseInt($('#giving').val());
-			var answer04 = parseInt($('#revenge').val());
-			var answer05 = parseInt($('#financial').val());
-			var answer06 = parseInt($('#butterfly').val());
-			var answer07 = parseInt($('#spoilers').val());
-			var answer08 = parseInt($('#halloween').val());
-			var answer09 = parseInt($('#beerpong').val());
-			var answer10 = parseInt($('#exercise').val());
+		//I have no idea why this is necessary. When I put this directly in the array they were strings & I could not parseInt...?
+		var answer01 = parseInt($('#cubs').val());
+		var answer02 = parseInt($('#climbing').val());
+		var answer03 = parseInt($('#giving').val());
+		var answer04 = parseInt($('#revenge').val());
+		var answer05 = parseInt($('#financial').val());
+		var answer06 = parseInt($('#butterfly').val());
+		var answer07 = parseInt($('#spoilers').val());
+		var answer08 = parseInt($('#halloween').val());
+		var answer09 = parseInt($('#beerpong').val());
+		var answer10 = parseInt($('#exercise').val());
 
-			var bestMatchScoreCount;
-			var bestMatchIndex;
-			var userData = {
-				name: $('#fullName').val().trim(),
-				photo: $('#profilePic').val().trim(),
-				Scores: [answer01,answer02,answer03,answer04,answer05,answer06,answer07,answer08,answer09,answer10]
-			};
+		var bestMatchScoreCount;
+		var bestMatchIndex;
+		var userData = {
+			name: $('#fullName').val().trim(),
+			photo: $('#profilePic').val().trim(),
+			Scores: [answer01,answer02,answer03,answer04,answer05,answer06,answer07,answer08,answer09,answer10]
+		};
 
-			//Get existing database before submitting
-			var currentURL = window.location.origin;
+		//Get existing database before submitting
+		var currentURL = window.location.origin;
 
-			$.ajax({url: currentURL + '/friendsList', method: "GET"})
-				.done(function(result){
-					//loop through each user
-					for (var i = 0; i < result.length; i++) {
-						var currentUserScore = 0;
-						for (var j = 0; j < 10; j++) {
-							console.log("User data is " + result[i].scores[j] + " and your data is " + userData.Scores[j]);
-							currentUserScore = currentUserScore + Math.abs(result[i].scores[j] - userData.Scores[j]);
-						}
-	
-						console.log("currentUserScore is " + currentUserScore);
-	
-						if (currentUserScore < bestMatchScoreCount || i == 0) {
-							console.log("You found a better match, " + result[i].name);
-							bestMatchScoreCount = currentUserScore;
-							bestMatchIndex = i;
-						}
+		$.ajax({url: currentURL + '/friendsList', method: "GET"})
+			.done(function(result){
+				//loop through each user
+				for (var i = 0; i < result.length; i++) {
+					var currentUserScore = 0;
+					for (var j = 0; j < 10; j++) {
+						currentUserScore = currentUserScore + Math.abs(result[i].scores[j] - userData.Scores[j]);
 					}
 
-				})
+					console.log("currentUserScore is " + currentUserScore);
 
-			console.log('Sending user data to server');
+					if (currentUserScore < bestMatchScoreCount || i == 0) {
+						console.log("You found a better match, " + result[i].name);
+						bestMatchScoreCount = currentUserScore;
+						bestMatchIndex = i;
+					}
+				}
 
-			$.post(currentURL + '/add', userData, function (data, status) {
-				console.log(data);
-			});
+			})
 
-			// //find best match
+		console.log('Sending user data to server');
 
-			// var perFriendDifferential = [];
-
-
-			
-
-
-			return false;
+		//Post submission to the array
+		$.post(currentURL + '/add', userData, function (data, status) {
+			console.log(data);
 		});
-	</script>
+
+		return false;
+	});
+</script>
 
 </body>
 </html>
