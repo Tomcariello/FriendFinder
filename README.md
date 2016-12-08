@@ -22,11 +22,10 @@ Process user answers and compare to array of friends
 Process submitted data into array for future searches.
 Load Modal to show the user their best match
 
-To Do:
-
-
 
 Stretch Goals:
-Force answers for all questions in survey
+Add validation checks:
+  Force answers for all questions in survey
+  Image URL
 Improve visual styling
-Hook this into MySQL
+Implement MySQL for persistent data
